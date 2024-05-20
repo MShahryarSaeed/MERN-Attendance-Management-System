@@ -15,7 +15,8 @@ const app=express();
 // middlewares
 app.use(express.json());
 app.use(cookieParser());
-
+app.use('/uploads',express.static('uploads'))
+// http://localhost:3000/uploads\bf852221-84af-4e77-8bae-ea406cb7b332_profile.jpg
 
 // Connection
 connectDB();

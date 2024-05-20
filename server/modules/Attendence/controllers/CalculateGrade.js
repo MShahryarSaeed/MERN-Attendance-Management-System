@@ -9,6 +9,7 @@ const CalculateGrade = async (req, res) => {
     const allowedLeaveDays = 5; // Maximum allowed leave days for the period
 
     let query = {};
+    
     if (startDate && endDate) {
         query.date = { $gte: new Date(startDate), $lte: new Date(endDate) };
     }

@@ -1,15 +1,19 @@
 const AttendenceModel = require("../../../models/Attendence.model");
 const leaveRequestModel = require("../../../models/leaveRequests.model");
+const moment = require("moment");
 
 const MarkAttendance = async (req, res) => {
+
+    const todayStart = moment().startOf('day').toDate();
+    const todayEnd = moment().endOf('day').toDate();
 
     // Check if attendance already marked for today
     const existingAttendence = await AttendenceModel.findOne({
         user: req.user._id,
         // date:new Date().toISOString().slice(0,10)
         date: {
-            $gte: new Date().setHours(0, 0, 0, 0),
-            $lt: new Date(new Date().setHours(0, 0, 0, 0) + 24 * 60 * 60 * 1000)
+            $gte: todayStart,
+            $lt: todayEnd
         }
     });
 
@@ -20,9 +24,9 @@ const MarkAttendance = async (req, res) => {
     // Check for approved leave request for today
     const approvedLeave = await leaveRequestModel.findOne({
         user: req.user._id,
-        startDate: { $lte: new Date() },
-        endDate: { $gte: new Date() },
-        status: "Approved"
+        startDate: { $lte: todayEnd },
+        endDate: { $gte: todayStart },
+        status: "approved"
     });
 
     let isPresent = true;

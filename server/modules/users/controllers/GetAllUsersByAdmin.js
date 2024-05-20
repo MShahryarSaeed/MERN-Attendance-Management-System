@@ -2,7 +2,7 @@ const userModel=require("../../../models/user.model");
 
 const GetAllUsersByAdmin=async(req,res)=>{
 
-    const page=parseInt(req.query.page) ? parseInt(req.query.page) : 1;
+    // const page=parseInt(req.query.page) ? parseInt(req.query.page) : 1;
     const startIndex=parseInt(req.query.startIndex) ? parseInt(req.query.startIndex) : 0;
     const limit=parseInt(req.query.limit) ? parseInt(req.query.limit) : 10;
 

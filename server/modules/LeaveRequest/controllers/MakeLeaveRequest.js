@@ -17,11 +17,12 @@ const MakeLeaveRequest = async (req, res) => {
         return res.status(400).json({ message: "Invalid Date Format" });
     }
 
+
     const newLeaveRequest = await leaveRequestModel.create({
         user: userId,
         reason: reason,
-        startDate: startDate,
-        endDate: endDate
+        startDate: moment(startDate).startOf('day').toDate(),
+        endDate:moment(endDate).endOf('day').toDate()
     });
 
     if (!newLeaveRequest) throw { message: "Leave Request Not Created Yet!", statusCode: 404 };
